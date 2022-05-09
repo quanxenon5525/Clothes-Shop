@@ -70,7 +70,8 @@ public class HomePageController {
 	public ModelAndView process_register(HttpServletRequest request) {
 		ModelAndView modelAndView = new ModelAndView("login/register");
 		
-
+		String firstName =  request.getParameter("firstName");
+		String lastName =  request.getParameter("lastName");
 		String phone =  request.getParameter("phone");
 		String username =  request.getParameter("username");
 		String password =  request.getParameter("password");
@@ -100,7 +101,7 @@ public class HomePageController {
 		}
 		else {
 
-			User user = new User(username,pass_bcrypt,1, phone, email);
+			User user = new User(username,pass_bcrypt,1, phone, email, firstName, lastName);
 			userMapper.insert(user);
 			modelAndView.addObject("message", "Đăng kí thành công ");
 

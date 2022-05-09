@@ -26,13 +26,15 @@ public class User {
 		this.lastname = lastname;
 		this.role = role;
 	}
-	public User(String username, String password, Integer role, String phone, String email) {
+	public User(String username, String password, Integer role, String phone, String email, String firstname, String lastname) {
 		super();
 		this.username =  username;
 		this.password = password;
 		this.role =  role;
 		this.phone = phone;
 		this.email =  email;
+		this.firstname = firstname;
+		this.lastname = lastname;
 	}
 
 	/**

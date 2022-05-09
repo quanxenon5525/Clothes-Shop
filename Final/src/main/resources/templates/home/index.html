@@ -3,7 +3,7 @@
 
 <head>
 <meta charset="utf-8">
-<title>EShopper - Bootstrap Shop Template</title>
+<title>Micracle Store</title>
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
 <meta content="Free HTML Templates" name="keywords">
 <meta content="Free HTML Templates" name="description">
@@ -144,7 +144,7 @@
 						
 							<i class="fa fa-user nav-item nav-link"sec:authorize="isFullyAuthenticated()" style="font-size:20px"></i>
 							
-							<p class="nav-item nav-link" sec:authorize="isFullyAuthenticated()" th:text="${'Xin chào '+ nameUser.get('firstName')}"></p>
+							<p class="nav-item nav-link" sec:authorize="isFullyAuthenticated()" th:text="${'Welcome, '+ nameUser.get('firstName')}"></p>
 							<a th:href="@{/register}"
 								class="nav-item nav-link" sec:authorize="!isFullyAuthenticated()">Register
 								
