@@ -2,6 +2,7 @@ package com.web.FinalProject.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
@@ -22,7 +23,7 @@ import com.web.FinalProject.model.UserExample;
 
 @Service
 public class CustomUserDetailService implements UserDetailsService {
-	private String SecretKey = "1@1231%&$$!";
+	private String SecretKey = "!@asd91!@#%";
 	@Autowired
 	UserMapper userMapper;
 	 @Autowired HttpServletResponse response; 
@@ -36,9 +37,23 @@ public class CustomUserDetailService implements UserDetailsService {
 			
 			User user =  listUser.get(0);
 			List<GrantedAuthority> grantList =  new ArrayList<GrantedAuthority>();
-			GrantedAuthority authority =  new SimpleGrantedAuthority("ADMIN");
-			grantList.add(authority);
-		    Cookie cookie = new Cookie("session_idUser", Encrypt.encrypt(user.getUsername(), SecretKey));
+			
+			
+			if(user.getIdUser() != null) {
+				List<Map<String,Object>> roleNames =  userMapper.selectGetRole(user.getIdUser());
+				 if (roleNames.size() != 0) {
+			            for (Map<String, Object> role : roleNames) {
+			                // ROLE_USER, ROLE_ADMIN,..
+			                GrantedAuthority authority = new SimpleGrantedAuthority(role.get("role_name").toString());
+			                grantList.add(authority);
+			            }
+			        }
+			}else {
+				GrantedAuthority authority =  new SimpleGrantedAuthority("VISIT");
+				grantList.add(authority);
+			}
+
+		    Cookie cookie = new Cookie("session_idUser", Encrypt.encrypt((user.getIdUser()).toString(), SecretKey));
 		    response.addCookie(cookie);
 
 			UserDetails userDetails =  new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), grantList);

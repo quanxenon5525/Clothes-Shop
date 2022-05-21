@@ -130,10 +130,28 @@
 
                             <a th:href="@{/contact}" class="nav-item nav-link">Contact</a>
                         </div>
-                        <div class="navbar-nav ml-auto py-0">
-                            <a href="" class="nav-item nav-link">Login</a>
-                            <a href="" class="nav-item nav-link">Register</a>
-                        </div>
+                       
+
+						<div th:switch="${checkSessionUser}">
+							<span th:case="1">
+							<tr th:each="item: ${dataUser}">
+									
+								<div class="nav-item dropdown">
+								<a href="#" class="nav-link dropdown-toggle"
+									data-toggle="dropdown" th:text="${item.get('firstName')}"></a>
+								<div class="dropdown-menu rounded-0 m-0">
+									<a th:href="@{/logout}" class="dropdown-item">Logout</a> 
+								</div>
+								</div>
+							</tr>
+							</span>
+							<span th:case="0">
+							 	  <div class="navbar-nav ml-auto py-0">
+		                            <a th:href="@{/login}" class="nav-item nav-link">Login</a>
+		                            <a th:href="@{/register}" class="nav-item nav-link">Register</a>
+                      	 		 </div>
+							</span>
+						<div>
                     </div>
                 </nav>
             </div>

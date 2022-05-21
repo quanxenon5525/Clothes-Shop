@@ -23,7 +23,7 @@
 	rel="stylesheet">
 
 <!-- Libraries Stylesheet -->
-<link th:href="@{home/lib/owlcarousel/assets/owl.carousel.min.css}"
+<link th:href="@{cart/lib/owlcarousel/assets/owl.carousel.min.css}"
 	rel="stylesheet">
 
 <!-- Customized Bootstrap Stylesheet -->
@@ -31,6 +31,7 @@
 </head>
 
 <body>
+
 	<!-- Topbar Start -->
 	<div class="container-fluid">
 		<div class="row bg-secondary py-2 px-xl-5">
@@ -105,7 +106,7 @@
 						<tr th:each="item : ${listCategory}">
 
 							<a href="" th:data-id="${item.idCategories}"
-								class="nav-item nav-link" th:text="${item.nameCategories}"></a>
+								class="nav-item nav-link" th:text="${item.namecategories}"></a>
 						</tr>
 						
 					</div>
@@ -138,10 +139,26 @@
 							</div>
 							<a th:href="@{/contact}" class="nav-item nav-link">Contact</a>
 						</div>
-						<div class="navbar-nav ml-auto py-0">
-							<a href="" class="nav-item nav-link">Login</a> <a href=""
-								class="nav-item nav-link">Register</a>
-						</div>
+						<div th:switch="${checkSessionUser}">
+							<span th:case="1">
+							<tr th:each="item: ${dataUser}">
+									
+								<div class="nav-item dropdown">
+								<a href="#" class="nav-link dropdown-toggle"
+									data-toggle="dropdown" th:text="${item.get('firstName')}"></a>
+								<div class="dropdown-menu rounded-0 m-0">
+									<a th:href="@{/logout}" class="dropdown-item">Logout</a> 
+								</div>
+								</div>
+							</tr>
+							</span>
+							<span th:case="0">
+							 	  <div class="navbar-nav ml-auto py-0">
+		                            <a th:href="@{/login}" class="nav-item nav-link">Login</a>
+		                            <a th:href="@{/register}" class="nav-item nav-link">Register</a>
+                      	 		 </div>
+							</span>
+						<div>
 					</div>
 				</nav>
 			</div>
@@ -178,186 +195,70 @@
 						<tr>
 							<th>Products</th>
 							<th>Price</th>
+							<th>Color</th>
+							<th>Size</th>
+							
 							<th>Quantity</th>
 							<th>Total</th>
 							<th>Remove</th>
 						</tr>
 					</thead>
-					<tbody class="align-middle">
-						<tr>
-							<td class="align-middle"><img th:src="@{home/img/product-1.jpg}" alt=""
-								style="width: 50px;"> Colorful Stylish Shirt</td>
-							<td class="align-middle">$150</td>
+					
+					<tbody class="align-middle" >
+						<tr th:each="item : ${listProductCart}">
+
+							<td class="align-middle" th:text="${item.product_Name}">
+							
+							<img  alt="logo"
+								style="width: 50px;">
+							</td>
+							<td class="align-middle" id="price" th:text="${item.total/ item.quantity}"></td>
+							<td class="align-middle" id="price" th:text="${item.color}"></td>
+							<td class="align-middle" id="price" th:text="${item.size}"></td>
+							
 							<td class="align-middle">
+							
+							
 								<div class="input-group quantity mx-auto" style="width: 100px;">
 									<div class="input-group-btn">
-										<button class="btn btn-sm btn-primary btn-minus">
-											<i class="fa fa-minus"></i>
-										</button>
+										
 									</div>
-									<input type="text"
-										class="form-control form-control-sm bg-secondary text-center"
-										value="1">
+									<input type="text" 
+										class="form-control form-control-sm bg-secondary text-center" id="quantity"
+										th:value="${item.quantity}" disabled>
 									<div class="input-group-btn">
-										<button class="btn btn-sm btn-primary btn-plus">
-											<i class="fa fa-plus"></i>
-										</button>
+									
 									</div>
 								</div>
 							</td>
-							<td class="align-middle">$150</td>
-							<td class="align-middle"><button
-									class="btn btn-sm btn-primary">
-									<i class="fa fa-times"></i>
-								</button></td>
-						</tr>
-						<tr>
-							<td class="align-middle"><img th:src="@{home/img/product-2.jpg}" alt=""
-								style="width: 50px;"> Colorful Stylish Shirt</td>
-							<td class="align-middle">$150</td>
+							<td class="align-middle" id="total" th:text="${item.total}" ></td>
 							<td class="align-middle">
-								<div class="input-group quantity mx-auto" style="width: 100px;">
-									<div class="input-group-btn">
-										<button class="btn btn-sm btn-primary btn-minus">
-											<i class="fa fa-minus"></i>
-										</button>
-									</div>
-									<input type="text"
-										class="form-control form-control-sm bg-secondary text-center"
-										value="1">
-									<div class="input-group-btn">
-										<button class="btn btn-sm btn-primary btn-plus">
-											<i class="fa fa-plus"></i>
-										</button>
-									</div>
-								</div>
-							</td>
-							<td class="align-middle">$150</td>
-							<td class="align-middle"><button
-									class="btn btn-sm btn-primary">
+					
+							<button id="btn-remove" th:data-id = "${item.id}"
+									type="submit" class="btn btn-sm btn-primary" a>
 									<i class="fa fa-times"></i>
-								</button></td>
-						</tr>
-						<tr>
-							<td class="align-middle"><img th:src="@{home/img/product-3.jpg}" alt=""
-								style="width: 50px;"> Colorful Stylish Shirt</td>
-							<td class="align-middle">$150</td>
-							<td class="align-middle">
-								<div class="input-group quantity mx-auto" style="width: 100px;">
-									<div class="input-group-btn">
-										<button class="btn btn-sm btn-primary btn-minus">
-											<i class="fa fa-minus"></i>
-										</button>
-									</div>
-									<input type="text"
-										class="form-control form-control-sm bg-secondary text-center"
-										value="1">
-									<div class="input-group-btn">
-										<button class="btn btn-sm btn-primary btn-plus">
-											<i class="fa fa-plus"></i>
-										</button>
-									</div>
-								</div>
-							</td>
-							<td class="align-middle">$150</td>
-							<td class="align-middle"><button
-									class="btn btn-sm btn-primary">
-									<i class="fa fa-times"></i>
-								</button></td>
-						</tr>
-						<tr>
-							<td class="align-middle"><img th:src="@{home/img/product-4.jpg}" alt=""
-								style="width: 50px;"> Colorful Stylish Shirt</td>
-							<td class="align-middle">$150</td>
-							<td class="align-middle">
-								<div class="input-group quantity mx-auto" style="width: 100px;">
-									<div class="input-group-btn">
-										<button class="btn btn-sm btn-primary btn-minus">
-											<i class="fa fa-minus"></i>
-										</button>
-									</div>
-									<input type="text"
-										class="form-control form-control-sm bg-secondary text-center"
-										value="1">
-									<div class="input-group-btn">
-										<button class="btn btn-sm btn-primary btn-plus">
-											<i class="fa fa-plus"></i>
-										</button>
-									</div>
-								</div>
-							</td>
-							<td class="align-middle">$150</td>
-							<td class="align-middle"><button
-									class="btn btn-sm btn-primary">
-									<i class="fa fa-times"></i>
-								</button></td>
-						</tr>
-						<tr>
-							<td class="align-middle"><img th:src="@{home/img/product-5.jpg}" alt=""
-								style="width: 50px;"> Colorful Stylish Shirt</td>
-							<td class="align-middle">$150</td>
-							<td class="align-middle">
-								<div class="input-group quantity mx-auto" style="width: 100px;">
-									<div class="input-group-btn">
-										<button class="btn btn-sm btn-primary btn-minus">
-											<i class="fa fa-minus"></i>
-										</button>
-									</div>
-									<input type="text"
-										class="form-control form-control-sm bg-secondary text-center"
-										value="1">
-									<div class="input-group-btn">
-										<button class="btn btn-sm btn-primary btn-plus">
-											<i class="fa fa-plus"></i>
-										</button>
-									</div>
-								</div>
-							</td>
-							<td class="align-middle">$150</td>
-							<td class="align-middle"><button
-									class="btn btn-sm btn-primary">
-									<i class="fa fa-times"></i>
-								</button></td>
-						</tr>
+									
+							</button>
+								</td>
+								</tr>
 					</tbody>
+			
+					
+									
+					
 				</table>
 			</div>
-			<div class="col-lg-4">
-				<form class="mb-5" action="">
-					<div class="input-group">
-						<input type="text" class="form-control p-4"
-							placeholder="Coupon Code">
-						<div class="input-group-append">
-							<button class="btn btn-primary">Apply Coupon</button>
-						</div>
-					</div>
-				</form>
-				<div class="card border-secondary mb-5">
-					<div class="card-header bg-secondary border-0">
-						<h4 class="font-weight-semi-bold m-0">Cart Summary</h4>
-					</div>
-					<div class="card-body">
-						<div class="d-flex justify-content-between mb-3 pt-1">
-							<h6 class="font-weight-medium">Subtotal</h6>
-							<h6 class="font-weight-medium">$150</h6>
-						</div>
-						<div class="d-flex justify-content-between">
-							<h6 class="font-weight-medium">Shipping</h6>
-							<h6 class="font-weight-medium">$10</h6>
-						</div>
-					</div>
-					<div class="card-footer border-secondary bg-transparent">
-						<div class="d-flex justify-content-between mt-2">
-							<h5 class="font-weight-bold">Total</h5>
-							<h5 class="font-weight-bold">$160</h5>
-						</div>
-						<button class="btn btn-block btn-primary my-3 py-3">Proceed
-							To Checkout</button>
-					</div>
+							<div class="col-lg-4">
+					
+			
+						
+						<a th:href="@{/checkout}" class="btn btn-block btn-primary my-3 py-3">Proceed
+							To Checkout</a>
 				</div>
 			</div>
 		</div>
 	</div>
+	
 	<!-- Cart End -->
 
 
@@ -462,19 +363,128 @@
 		class="fa fa-angle-double-up"></i></a>
 
 
-	<!-- JavaScript Libraries -->
-	<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	
 	<script
 		src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
-	<script src="lib/easing/easing.min.js"></script>
-	<script src="lib/owlcarousel/owl.carousel.min.js"></script>
+	<script th:src="@{cart/lib/easing/easing.min.js}"></script>
+	<script th:src="@{cart/lib/owlcarousel/owl.carousel.min.js}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/crypto-js.js"></script>
+
 
 	<!-- Contact Javascript File -->
-	<script src="mail/jqBootstrapValidation.min.js"></script>
-	<script src="mail/contact.js"></script>
+
 
 	<!-- Template Javascript -->
-	<script src="js/main.js"></script>
+	<script th:src="@{cart/js/main.js}"></script>
 </body>
+ <script>
+  
+  var tmp;
+		  $('button#btn-remove').click(e => {
+		    let id = e.target.dataset.id;
+		    let idproduct = e.target.dataset.productid;
+			
+		    if (id) {
+		        alert('Qúy khách có muốn xóa sản phẩm ');
+		        
+		        remove(id,idproduct);
+				location.reload();
+		
+		    } else {
+		        alert('Hệ thống đang load dữ liệu Vui lòng refresh lại');
+		
+			location.reload();
+		    }
+		
+		});
+		
+		
+	function remove(id, idproduct) {
+   	 fetch("/removecart/" + id, {
+
+        method: 'get'
+    }).then(() => {
+    	
+        console.log('removed');
+        var dataCookieCart =  getCookie("cart");
+        var dataCookieIdCart =  getCookie("id_cart");
+
+        var ArrCart =  dataCookieCart.split("=");
+        var ArrCartId  =  dataCookieIdCart.split("=");
+        for(var i = 0; i < ArrCart.length; i++){
+        	var ArrCartItem =  ArrCart[i].split("'")
+        	
+        	for(var y = 0;  y <  ArrCartItem.length; y++){
+					if(ArrCartItem[0] == idproduct){ 
+						tmp =  ArrCart[i];
+					
+					
+					}
+	
+        	}
+        		
+        } 
+        if(findValueInArray(idproduct,ArrCartId)){
+        	 removeElement(ArrCartId,idproduct);
+        	 setCookie("id_cart",String(ArrCartId).replace(",", "="));
+        	 
+        }
+        removeElement(ArrCart,tmp);
+   
+        setCookie("cart",String(ArrCart).replace(",", "="));
+		alert('Xóa Sản Phẩm Thành Công');
+		location.reload();
+
+    }).catch(err => {
+        console.error(err)
+    });
+
+	}
+	function removeElement(array, elem) {
+    var index = array.indexOf(elem);
+    if (index > -1) {
+        array.splice(index, 1);
+    }
+}
+
+	function findValueInArray(value,arr){
+  		var result = false;
+ 
+	  for(var i=0; i<arr.length; i++){
+	    var name = arr[i];
+	    if(name == value){
+	      result = true
+	      break;
+	    }
+  	}
+  return result;
+}
+  function setCookie(cname,cvalue,exdays) {
+		  const d = new Date();
+		  d.setTime(d.getTime() + (exdays*24*60*60*1000));
+		  let expires = "expires=" + d.toUTCString();
+		  document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+		}
+
+		function getCookie(cname) {
+		  let name = cname + "=";
+		  let decodedCookie = decodeURIComponent(document.cookie);
+		  let ca = decodedCookie.split(';');
+		  for(let i = 0; i < ca.length; i++) {
+		    let c = ca[i];
+		    while (c.charAt(0) == ' ') {
+		      c = c.substring(1);
+		    }
+		    if (c.indexOf(name) == 0) {
+		      return c.substring(name.length, c.length);
+		    }
+		  }
+		  return "";
+		}
+  </script>
+
+
+
 
 </html>

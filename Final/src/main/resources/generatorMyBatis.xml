@@ -37,6 +37,12 @@
       <table  tableName="brand" domainObjectName="Brand" >
      
     </table>
+        <table  tableName="cart" domainObjectName="Cart" >
+     
+    </table>
+        <table  tableName="checkout" domainObjectName="Checkout" >
+     
+    </table>
 
   </context>
 </generatorConfiguration>

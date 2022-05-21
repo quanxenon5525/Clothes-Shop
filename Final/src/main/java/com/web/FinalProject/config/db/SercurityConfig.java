@@ -37,6 +37,21 @@ public class SercurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception{
+		http.authorizeRequests().antMatchers("/admin").hasAuthority("ADMIN");
+		http.authorizeRequests().antMatchers("/ManagerProduct/AddProduct").hasAuthority("ADMIN");
+		http.authorizeRequests().antMatchers("/ManagerProduct/ListProduct").hasAuthority("ADMIN");
+		http.authorizeRequests().antMatchers("/ManagerBrand/AddBrand").hasAuthority("ADMIN");
+		http.authorizeRequests().antMatchers("/ManagerBrand/ListBrand").hasAuthority("ADMIN");
+		http.authorizeRequests().antMatchers("/ManagerCategory/AddCategory").hasAuthority("ADMIN");
+		http.authorizeRequests().antMatchers("/ManagerCategory/ListCategory").hasAuthority("ADMIN");
+		http.authorizeRequests().antMatchers("/ManagerOrder/ListWait").hasAuthority("ADMIN");
+		http.authorizeRequests().antMatchers("/ManagerProduct/EditProduct/**").hasAuthority("ADMIN");
+		http.authorizeRequests().antMatchers("/ManagerBrand/EditBrand/**").hasAuthority("ADMIN");
+		http.authorizeRequests().antMatchers("/ManagerCategory/EditCategory/**").hasAuthority("ADMIN");
+		http.authorizeRequests().antMatchers("/ManagerOrder/DetailOrder/**").hasAuthority("ADMIN");
+
+
+
 		http.authorizeRequests()
 		.antMatchers("/**",
 				"/login/vendor/**",
@@ -52,7 +67,14 @@ public class SercurityConfig extends WebSecurityConfigurerAdapter {
 				"/home/lib/**",
 				"/categories/img/**",
 				"/collection/img/**",
-				"/logout").permitAll()
+				"/logout", 
+				"/checkout",
+				"/cart/**",
+				"/detail",
+				"/all-cookies"
+		
+			
+				).permitAll()
 		
 		.anyRequest().authenticated()
 		.and()

@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>DASHMIN - Bootstrap Admin Template</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="" name="keywords">
+    <meta content="" name="description">
+
+    <!-- Favicon -->
+    <link th:href="@{admin/img/favicon.ico}" rel="icon">
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Icon Font Stylesheet -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link th:href="@{admin/lib/owlcarousel/assets/owl.carousel.min.css}" rel="stylesheet">
+    <link th:href="@{admin/lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css}" rel="stylesheet" />
+	<link rel="stylesheet" href="http://cdn.datatables.net/1.12.0/css/jquery.dataTables.min.css">
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link th:href="@{admin/css/bootstrap.min.css}" rel="stylesheet">
+
+    <!-- Template Stylesheet -->
+    <link th:href="@{admin/css/style.css}" rel="stylesheet">
+</head>
+
+<body>
+    <div class="container-xxl position-relative bg-white d-flex p-0">
+        <!-- Spinner Start -->
+        <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+            <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+                <span class="sr-only">Loading...</span>
+            </div>
+        </div>
+        <!-- Spinner End -->
+
+
+        <!-- Sidebar Start -->
+       <div class="sidebar pe-4 pb-3">
+            <nav class="navbar bg-light navbar-light">
+                  <a th:href="@{/admin}" class="navbar-brand mx-4 mb-3">
+                    <h3 class="text-primary"><i class="fa fa-hashtag me-2"></i>ADMIN</h3>
+                </a>
+                
+                <div class="navbar-nav w-100">
+                    <a th:href="@{/admin}" class="nav-item nav-link active"><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
+                     <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-laptop me-2"></i>Manager Product</a>
+                        <div class="dropdown-menu bg-transparent border-0">
+                            <a th:href="@{/ManagerProduct/AddProduct}" class="dropdown-item">Add Product</a>
+                            <a th:href="@{/ManagerProduct/ListProduct}" class="dropdown-item">List Product</a>
+                        </div>
+                    </div>
+                    <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-laptop me-2"></i>Manager Brand</a>
+                        <div class="dropdown-menu bg-transparent border-0">
+                            <a th:href="@{/ManagerBrand/AddBrand}" class="dropdown-item">Add Brand</a>
+                            <a th:href="@{/ManagerBrand/ListBrand}" class="dropdown-item">List Brand</a>
+                        </div>
+                    </div>
+                    <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="far fa-file-alt me-2"></i>Manager Category</a>
+                        <div class="dropdown-menu bg-transparent border-0">
+                             <a th:href="@{/ManagerCategory/AddCategory}" class="dropdown-item">Add Category</a>
+                            <a th:href="@{/ManagerCategory/ListCategory}" class="dropdown-item">List Category</a>
+                        </div>
+                    </div>
+                     <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="far fa-file-alt me-2"></i>Manager Order</a>
+                        <div class="dropdown-menu bg-transparent border-0">
+                            <a th:href="@{/ManagerOrder/ListWait}" class="dropdown-item">List Order </a>
+                            
+                        </div>
+                    </div>
+                    
+                </div>
+            </nav>
+        </div>
+        <!-- Sidebar End -->
+
+        <!-- Content Start -->
+        <div class="content">
+            <!-- Navbar Start -->
+            <nav class="navbar navbar-expand bg-light navbar-light sticky-top px-4 py-0">
+                <a href="index.html" class="navbar-brand d-flex d-lg-none me-4">
+                    <h2 class="text-primary mb-0"><i class="fa fa-hashtag"></i></h2>
+                </a>
+                <a href="#" class="sidebar-toggler flex-shrink-0">
+                    <i class="fa fa-bars"></i>
+                </a>
+                <form class="d-none d-md-flex ms-4">
+                    <input class="form-control border-0" type="search" placeholder="Search">
+                </form>
+                <div class="navbar-nav align-items-center ms-auto">
+                   
+                   
+                    <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
+                            <img class="rounded-circle me-lg-2" src="img/user.jpg" alt="" style="width: 40px; height: 40px;">
+                            <span class="d-none d-lg-inline-flex">John Doe</span>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
+                            <a href="#" class="dropdown-item">My Profile</a>
+                            <a href="#" class="dropdown-item">Settings</a>
+                            <a href="#" class="dropdown-item">Log Out</a>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+            <!-- Navbar End -->
+
+<br>
+            <!-- Sale & Revenue Start -->
+          <table id="datatable1" class="table display responsive nowrap">
+    <thead>
+    	<h2>List Order Wait</h2>
+      <tr>
+        <th class="wd-15p">ID Order</th>
+        
+        <th class="wd-15p">UserName</th>
+          <th class="wd-15p">Total</th>
+        
+        <th class="wd-15p">Status</th>
+
+        <th class="wd-15p">Time</th>
+        
+        <th class="wd-10p">Action</th>
+         <th class="wd-10p">View Detail</th>
+        
+
+      </tr>
+    </thead>
+    <tbody>
+      <tr th:each="value: ${listOrder}">
+      	
+        <td th:text="${value.id}"></td>
+        <td th:text="${value.username}"></td>
+        <td th:text="${value.total}"></td>
+        	
+        	         <td th:if="${value.Active == 1}">Be Approval</td>
+                 <td th:if="${value.Active == 2}">Done</td>
+      	<td th:text="${value.time}"></td>
+        
+        <td th:if="${value.Active == 1}">
+        	
+            <a  class="btn btn-success btnAcept" th:data-id="${value.id}" >Send Product</a>
+        </td>
+         <td th:if="${value.Active == 2}">
+        	
+            <a  class="btn btn-secondary btnAcept">Done</a>
+        </td>
+       
+         <td>
+        	
+            <a th:href="@{'/ManagerOrder/DetailOrder/'+${value.id}}" class="btn btn-primary" >View Detail</a>
+        </td>
+       
+      </tr>
+	
+    </tbody>
+  </table>
+                        <!-- Pie Chart -->
+                       
+ 	 <footer class="sticky-footer bg-white">
+                <div class="container my-auto">
+                    <div class="copyright text-center my-auto">
+                        <span>Copyright &copy; Your Website 2021</span>
+                    </div>
+                </div>
+            </footer>
+                    <!-- Content Row -->
+                 
+                <!-- /.container-fluid -->
+
+            </div>
+            
+      
+            
+            <!-- End of Main Content -->
+
+            <!-- Footer -->
+          
+        <!-- Content End -->
+
+
+        <!-- Back to Top -->
+        <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
+    </div>
+
+    <!-- JavaScript Libraries -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script th:src="@{admin/lib/chart/chart.min.js}"></script>
+    <script th:src="@{admin/lib/easing/easing.min.js}"></script>
+    <script th:src="@{admin/lib/waypoints/waypoints.min.js}"></script>
+    <script th:src="@{admin/lib/owlcarousel/owl.carousel.min.js}"></script>
+    <script th:src="@{admin/lib/tempusdominus/js/moment.min.js}"></script>
+    <script th:src="@{admin/lib/tempusdominus/js/moment-timezone.min.js}"></script>
+    <script th:src="@{admin/lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js}"></script>
+
+    <!-- Template Javascript -->
+    <script th:src="@{admin/js/main.js}"></script>
+</body>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+
+<script type="text/javascript" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.7.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.7.0/firebase-storage.js"></script>
+
+
+<script>
+  $(function() {
+        $('#datatable1').DataTable({
+            responsive: true,
+            pageLength: 5,
+            language: {
+                searchPlaceholder: 'Tìm kiếm...',
+                sSearch: '',
+                lengthMenu: '_MENU_item/page',
+                paginate: {previous: " < ", next: " > "},
+                lengthMenu: "Hiện _MENU_ tin trong mỗi trang",
+                zeroRecords: "Không tìm thấy",
+                info: "Đang hiện trang _PAGE_ trong _PAGES_ trang",
+                infoEmpty: "Không có dòng nào",
+                infoFiltered: "(Lọc trong _MAX_ tin)",
+            }
+        })
+    });
+
+	$('a.btn.btn-success.btnAcept').click((e)=>{
+		let id =  e.target.dataset.id;
+		  let text = "Confirm Accept Send Product! ";
+		  if (confirm(text) == true) {
+		    	alert('Confirm Send Product Successful!')
+		    	       accept(id);
+		    	       
+		    	
+		  } else {
+		    alert('You cancel SendProduct');
+		    	location.reload();
+		  }
+	})
+	
+	 function accept(id) {
+   	 fetch("/ManagerOrder/acceptProduct/" + id, {
+
+        method: 'get'
+    }).then(() => {
+    	location.reload();
+        
+		
+    }).catch(err => {
+        console.error(err)
+    });
+
+	}
+  // Import the functions you need from the SDKs you need
+
+  // TODO: Add SDKs for Firebase products that you want to use
+  // https://firebase.google.com/docs/web/setup#available-libraries
+
+  // Your web app's Firebase configuration
+  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+  var firebaseConfig = {
+    apiKey: "AIzaSyDdeuEz90UIrQGUm39PC7vTELfIUV6fFC8",
+    authDomain: "upload-fc579.firebaseapp.com",
+    projectId: "upload-fc579",
+    storageBucket: "upload-fc579.appspot.com",
+    messagingSenderId: "110457690097",
+    appId: "1:110457690097:web:23b30bc257dc2ddd3b9650",
+    measurementId: "G-D6WPCSQQW8"
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+
+
+  
+  
+
+
+
+   function uploadImage() {
+      const ref = firebase.storage().ref();
+      const file = document.querySelector("#Imgproduct").files[0];
+      const name = +new Date() + "-" + file.name;
+      const metadata = {
+        contentType: file.type
+      };
+      const task = ref.child(name).put(file, metadata);
+      task
+        .then(snapshot => snapshot.ref.getDownloadURL())
+        .then(url => {
+        	console.log(url);
+        	$('input#img').val(url);
+        	
+        })
+        .catch(console.error);
+    }
+
+  setTimeout(function () {
+	    $('#alert').fadeOut('fast');
+	  }, 4000);
+	    if ( window.history.replaceState ) {
+	        window.history.replaceState( null, null, window.location.href );
+	    }
+	$('form#contactForm').submit(function(e){
+        e.preventDefault();
+    });
+
+
+</script>
+</html>

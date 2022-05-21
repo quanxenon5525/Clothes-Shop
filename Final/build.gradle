@@ -11,7 +11,6 @@ sourceCompatibility = '11'
 
 repositories {
 	mavenCentral()
-	maven { url 'https://repo.spring.io/snapshot' }
 }
 
 dependencies {
@@ -27,8 +26,10 @@ dependencies {
 	implementation 'org.springframework.session:spring-session-core:2.6.3'
 	testImplementation 'org.springframework.security:spring-security-test:5.5.1'
 	implementation 'org.springframework.boot:spring-boot-devtools:2.6.7'
-	compile 'org.springframework.boot:spring-boot-starter-security'
-  	compile 'org.springframework.security.oauth.boot:spring-security-oauth2-autoconfigure:2.1.8.BUILD-SNAPSHOT'
+    implementation 'com.google.code.gson:gson:2.8.6'
+	implementation 'org.json:json:20180813'
+	
+	
 }
 
 tasks.named('test') {

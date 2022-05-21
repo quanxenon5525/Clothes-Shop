@@ -38,10 +38,10 @@ public class DatabaseConfig {
 	@Bean(name= "dataSource")
 	public DataSource dataSource() {
 		HikariConfig hikariConfig =  new HikariConfig();
-		hikariConfig.setJdbcUrl(Encrypt.decrypt(urlDB, secretkey));
+		hikariConfig.setJdbcUrl(urlDB);
 		hikariConfig.setDriverClassName(driverClassName);
-		hikariConfig.setUsername(Encrypt.decrypt(userName, secretkey));
-		hikariConfig.setPassword(Encrypt.decrypt(password, secretkey));
+		hikariConfig.setUsername(userName);
+		hikariConfig.setPassword(password);
 		HikariDataSource hikariSource =  new HikariDataSource(hikariConfig);
 		
 		return hikariSource;
